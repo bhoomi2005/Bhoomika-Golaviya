@@ -1,0 +1,177 @@
+<div class="custom-page-banner-wrapper">
+    <div class="custom-page-banner-header">
+        {% if section.settings.logo != blank %}
+            <div class="logo_image"><img src="{{ section.settings.logo | image_url: width: 400 }}" alt="Logo" /></div>
+        {% endif %}
+        {% if section.settings.text != blank %}
+            <div class="text_line">{{ section.settings.text }}</div>
+        {% endif %}
+        {% if section.settings.btn_text != blank %}
+            <a href="{{ section.settings.btn_link }}" class="btn">
+                {{ section.settings.btn_text }}
+                <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="black"/>
+                </svg>
+            </a>
+        {% endif %}
+    </div>
+    <div class="banner-wrapper">
+        <div class="banner_image">
+            <div class="hideMobile">
+                {% if section.settings.banner_image != blank %}
+                    {%- liquid
+                        assign height = section.settings.banner_image.width | divided_by: section.settings.banner_image.aspect_ratio | round
+                        assign sizes = '100vw'
+                        assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                        assign fetch_priority = 'high'
+                    -%}
+                    {{
+                        section.settings.banner_image
+                        | image_url: width: 3840
+                        | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority
+                    }}
+                {% else %}
+                    {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+            </div>
+            <div class="hideDesktop">
+                {% if section.settings.banner_image_m != blank %}
+                    {%- liquid
+                        assign height = section.settings.banner_image_m.width | divided_by: section.settings.banner_image_m.aspect_ratio | round
+                        assign sizes = '100vw'
+                        assign widths = '375, 550, 750, 1100'
+                        assign fetch_priority = 'high'
+                    -%}
+                    {{
+                        section.settings.banner_image_m
+                        | image_url: width: 1000
+                        | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority
+                    }}
+                {% else %}
+                    {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+            </div>
+            <div class="text-content-wrap text-position-h-{{ section.settings.text_position | split: '-' | first }} text-position-v-{{ section.settings.text_position | split: '-' | last }}">
+                {% if section.settings.title != blank %}
+                    <div class="title">{{ section.settings.title }}</div>
+                {% endif %}
+                {% if section.settings.content != blank %}
+                    <div class="content">{{ section.settings.content }}</div>
+                {% endif %}
+                {% if section.settings.banner_btn_text != blank %}
+                    <a href="{{ section.settings.banner_btn_link }}" class="btn">
+                        {{ section.settings.banner_btn_text }}
+                        <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="black"/>
+                        </svg>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if section.settings.bottom_text != blank %}
+        <div class="bottom-line">{{ section.settings.bottom_text }}</div>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Custom page banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+        "type": "header",
+        "content": "Header"
+    },
+    {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo Image"
+    },
+    {
+        "type": "text",
+        "id": "text",
+        "label": "Text line"
+    },
+    {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button text"
+    },
+    {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button link"
+    },
+    {
+        "type": "header",
+        "content": "Banner"
+    },
+    {
+        "type": "image_picker",
+        "id": "banner_image",
+        "label": "Banner Image"
+    },
+    {
+        "type": "image_picker",
+        "id": "banner_image_m",
+        "label": "Banner Image(Mobile)"
+    },
+    {
+        "type": "header",
+        "content": "Text content"
+    },
+    {
+        "type": "select",
+        "id": "text_position",
+        "label": "Text position",
+        "options": [
+            { "value": "top-left", "label": "Top Left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top Right" },
+            { "value": "middle-left", "label": "Middle Left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle Right" },
+            { "value": "bottom-left", "label": "Bottom Left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom Right" }
+        ]
+    },
+    {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+    },
+    {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+    },
+    {
+        "type": "text",
+        "id": "banner_btn_text",
+        "label": "Button text"
+    },
+    {
+        "type": "url",
+        "id": "banner_btn_link",
+        "label": "Button link"
+    },
+    {
+        "type": "header",
+        "content": "Bottom line"
+    },
+    {
+        "type": "text",
+        "id": "bottom_text",
+        "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom page banner"
+    }
+  ]
+}
+{% endschema %}
