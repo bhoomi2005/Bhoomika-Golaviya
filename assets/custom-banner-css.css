@@ -1,0 +1,59 @@
+.custom-page-banner-wrapper *{ font-family: "Jost"; }
+.custom-page-banner-wrapper .custom-page-banner-header{ padding: 10px 50px; background-color: #F5F5F5; display: flex; align-items: center; justify-content: space-between; }
+.custom-page-banner-wrapper .custom-page-banner-header .logo_image img{ width: 150px; display: block; }
+.custom-page-banner-wrapper .custom-page-banner-header .text_line{ font-size: 16px; color: #000; font-weight: 400; }
+.custom-page-banner-wrapper a.btn{
+    --background-color: #FFF544;
+    --color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color);
+    text-decoration: none;
+    line-height: 1.25;
+    background: var(--background-color);
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+}
+.custom-page-banner-wrapper a.btn:before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--color);
+    transition: all .35s ease-Out;
+}
+.custom-page-banner-wrapper a.btn:hover:before { left: 0; }
+.custom-page-banner-wrapper a.btn:hover{ color: var(--background-color); }
+.custom-page-banner-wrapper a.btn:hover *{ z-index: 2; }
+
+.custom-page-banner-wrapper .banner-wrapper{ position: relative; }
+.custom-page-banner-wrapper .banner-wrapper .hideDesktop{ display: none; }
+.custom-page-banner-wrapper .banner-wrapper img{ width: 100%; display: block; object-fit: cover; }
+.custom-page-banner-wrapper .text-content-wrap{
+    position: absolute;
+    padding: 0px 67px;
+    max-width: 610px;
+}
+.custom-page-banner-wrapper .text-content-wrap.text-position-h-top{ top: 50px; }
+.custom-page-banner-wrapper .text-content-wrap.text-position-h-middle{ top: 50%; transform: translateX(-50%); }
+.custom-page-banner-wrapper .text-content-wrap.text-position-h-bottom{ bottom: 50px; }
+.custom-page-banner-wrapper .text-content-wrap.text-position-v-left{ left: 0px; }
+.custom-page-banner-wrapper .text-content-wrap.text-position-v-center{ left: 50%; transform: translateY(-50%); }
+.custom-page-banner-wrapper .text-content-wrap.text-position-v-right{ right: 0px; }
+.custom-page-banner-wrapper .text-content-wrap .title{ font-size: 70px; line-height: 1; color: #000; font-weight: 500; margin-bottom: 50px; }
+.custom-page-banner-wrapper .text-content-wrap .content p{ font-size: 20px; line-height: 1.4; color: #000; font-weight: 400; }
+.custom-page-banner-wrapper .text-content-wrap a.btn{
+    margin-top: 50px;
+    --color: #fff;
+    --background-color: #000;
+    padding: 14px 28px;
+    max-width: 220px;
+    border: 1px solid;
+}
+.bottom-line{ background-color: #F5F5F5; padding: 10px 50px; font-size: 16px; font-weight: 400; color: #000; line-height: 0.88; text-align: center; }

@@ -1,0 +1,160 @@
+<link href="https://fonts.googleapis.com/css2?family=Lustria&display=swap" rel="stylesheet">
+{{ 'custom-gallery-css.css' | asset_url | stylesheet_tag }}
+<div class="custom-page-gallery-wrapper section-{{ section.id }}">
+    {%- if section.settings.title != blank -%}
+        <div class="title">{{ section.settings.title }}</div>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+        <div class="custom-page-gallery-blocks">
+            {%- for block in section.blocks -%}
+                <div class="custom-page-gallery-block block-{{ block.id }}">
+                    <div class="custom-page-gallery-block-image">
+                        <img srcset="{{ block.settings.image | img_url: 'master' }}" loading="lazy" alt="">
+                        {%- if block.settings.related_product != blank -%}
+                            <div class="product-popup-trigger" data-product="{{ block.settings.related_product }}">
+                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="11" cy="11" r="11" fill="#F8F8F8" fill-opacity="0.9"/>
+                                    <path d="M11.3457 7.04175V15.5033" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                                    <path d="M7.11523 11.2725H15.5768" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        {%- endif -%}
+                        <style>
+                            .block-{{ block.id }} .product-popup-trigger{ top: {{ block.settings.icon_position_h }}%; left: {{ block.settings.icon_position_v }}%; }
+                        </style>
+                    </div>
+                </div>
+            {%- endfor -%}
+        </div>
+    {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Custom page grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+    },
+    {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top(Desktop)",
+        "default": 40
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding bottom(Desktop)",
+        "default": 52
+    },
+    {
+        "type": "range",
+        "id": "padding_top_m",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top(Mobile)",
+        "default": 40
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom_m",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding bottom(Mobile)",
+        "default": 52
+    }
+  ],
+  "blocks": [
+    {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            },
+            {
+                "type": "product",
+                "id": "related_product",
+                "label": "Related product"
+            },
+            {
+                "type": "header",
+                "content": "Icon position(Desktop)"
+            },
+            {
+                "type": "range",
+                "id": "icon_position_h",
+                "label": "Horizontal position of icon",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "default": 50
+            },
+            {
+                "type": "range",
+                "id": "icon_position_v",
+                "label": "Vertical position of icon",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "default": 50
+            },
+            {
+                "type": "header",
+                "content": "Icon position(Mobile)"
+            },
+            {
+                "type": "range",
+                "id": "icon_position_h_m",
+                "label": "Horizontal position of icon",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "default": 50
+            },
+            {
+                "type": "range",
+                "id": "icon_position_v_m",
+                "label": "Vertical position of icon",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "default": 50
+            }
+        ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom page grid"
+    }
+  ]
+}
+{% endschema %}
