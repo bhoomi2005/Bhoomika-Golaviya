@@ -46,10 +46,10 @@
           "settings": {
             "image": "shopify:\/\/shop_images\/image_822.png",
             "related_product": "black-leather-bag",
-            "icon_position_h": 50,
-            "icon_position_v": 50,
-            "icon_position_h_m": 50,
-            "icon_position_v_m": 50
+            "icon_position_h": 54,
+            "icon_position_v": 59,
+            "icon_position_h_m": 8,
+            "icon_position_v_m": 61
           }
         },
         "image_K6VqzX": {
@@ -57,49 +57,49 @@
           "settings": {
             "related_product": "blue-silk-tuxedo",
             "icon_position_h": 50,
-            "icon_position_v": 50,
-            "icon_position_h_m": 50,
-            "icon_position_v_m": 50
+            "icon_position_v": 80,
+            "icon_position_h_m": 8,
+            "icon_position_v_m": 61
           }
         },
         "image_L7Yzib": {
           "type": "image",
           "settings": {
             "related_product": "chequered-red-shirt",
-            "icon_position_h": 50,
-            "icon_position_v": 50,
-            "icon_position_h_m": 50,
-            "icon_position_v_m": 50
+            "icon_position_h": 17,
+            "icon_position_v": 62,
+            "icon_position_h_m": 8,
+            "icon_position_v_m": 61
           }
         },
         "image_yQLJRV": {
           "type": "image",
           "settings": {
             "related_product": "classic-leather-jacket",
-            "icon_position_h": 50,
-            "icon_position_v": 50,
-            "icon_position_h_m": 50,
-            "icon_position_v_m": 50
+            "icon_position_h": 17,
+            "icon_position_v": 68,
+            "icon_position_h_m": 8,
+            "icon_position_v_m": 61
           }
         },
         "image_R43KmT": {
           "type": "image",
           "settings": {
             "related_product": "classic-varsity-top",
-            "icon_position_h": 50,
-            "icon_position_v": 50,
-            "icon_position_h_m": 50,
-            "icon_position_v_m": 50
+            "icon_position_h": 25,
+            "icon_position_v": 48,
+            "icon_position_h_m": 8,
+            "icon_position_v_m": 61
           }
         },
         "image_TzQeyi": {
           "type": "image",
           "settings": {
             "related_product": "dark-denim-top",
-            "icon_position_h": 50,
-            "icon_position_v": 50,
-            "icon_position_h_m": 50,
-            "icon_position_v_m": 50
+            "icon_position_h": 38,
+            "icon_position_v": 71,
+            "icon_position_h_m": 8,
+            "icon_position_v_m": 61
           }
         }
       },
