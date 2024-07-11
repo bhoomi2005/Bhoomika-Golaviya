@@ -85,7 +85,7 @@
     .custom-page-banner-wrapper .text-content-wrap .title{ font-size: 30px; margin-top: 50px; margin-bottom: 24px; }
     .custom-page-banner-wrapper .text-content-wrap .content p{ font-size: 16px; }
     .custom-page-banner-wrapper .text-content-wrap .btn{ position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%); }
-    .custom-page-banner-wrapper .bottom-line{ font-size: 14px; }
+    .custom-page-banner-wrapper .bottom-line{ font-size: 14px; padding: 10px; }
 }
 @media screen and (min-width: 1921px){
     .custom-container{ max-width: 75%; margin: 0 auto; }
