@@ -26,6 +26,8 @@
         "btn_link": "#",
         "banner_image": "shopify:\/\/shop_images\/image_5.png",
         "banner_image_m": "shopify:\/\/shop_images\/Frame.png",
+        "banner_height": 780,
+        "banner_height_m": 265,
         "text_position": "bottom-left",
         "title": "The Gift Guide",
         "content": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.<\/p>",
@@ -33,10 +35,92 @@
         "banner_btn_link": "#",
         "bottom_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
       }
+    },
+    "custom_page_gallery_wFYAGr": {
+      "type": "custom-page-gallery",
+      "blocks": {
+        "image_abC9jr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Group_1000008178.png",
+            "related_product": "black-leather-bag",
+            "icon_position_h": 50,
+            "icon_position_v": 50,
+            "icon_position_h_m": 50,
+            "icon_position_v_m": 50
+          }
+        },
+        "image_K6VqzX": {
+          "type": "image",
+          "settings": {
+            "related_product": "blue-silk-tuxedo",
+            "icon_position_h": 50,
+            "icon_position_v": 50,
+            "icon_position_h_m": 50,
+            "icon_position_v_m": 50
+          }
+        },
+        "image_L7Yzib": {
+          "type": "image",
+          "settings": {
+            "related_product": "chequered-red-shirt",
+            "icon_position_h": 50,
+            "icon_position_v": 50,
+            "icon_position_h_m": 50,
+            "icon_position_v_m": 50
+          }
+        },
+        "image_yQLJRV": {
+          "type": "image",
+          "settings": {
+            "related_product": "classic-leather-jacket",
+            "icon_position_h": 50,
+            "icon_position_v": 50,
+            "icon_position_h_m": 50,
+            "icon_position_v_m": 50
+          }
+        },
+        "image_R43KmT": {
+          "type": "image",
+          "settings": {
+            "related_product": "classic-varsity-top",
+            "icon_position_h": 50,
+            "icon_position_v": 50,
+            "icon_position_h_m": 50,
+            "icon_position_v_m": 50
+          }
+        },
+        "image_TzQeyi": {
+          "type": "image",
+          "settings": {
+            "related_product": "dark-denim-top",
+            "icon_position_h": 50,
+            "icon_position_v": 50,
+            "icon_position_h_m": 50,
+            "icon_position_v_m": 50
+          }
+        }
+      },
+      "block_order": [
+        "image_abC9jr",
+        "image_K6VqzX",
+        "image_L7Yzib",
+        "image_yQLJRV",
+        "image_R43KmT",
+        "image_TzQeyi"
+      ],
+      "settings": {
+        "title": "Tisso vison in the wild",
+        "padding_top": 92,
+        "padding_bottom": 48,
+        "padding_top_m": 40,
+        "padding_bottom_m": 52
+      }
     }
   },
   "order": [
     "main",
-    "custom_page_banner_XTiafX"
+    "custom_page_banner_XTiafX",
+    "custom_page_gallery_wFYAGr"
   ]
 }
