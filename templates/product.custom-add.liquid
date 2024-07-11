@@ -1,0 +1,206 @@
+
+<product-popup class="product-popup">
+    <product-form class="product-form" data-hide-errors="false" data-section-id="{{product.id}}__main">
+        <div class="product-popup-top">
+            <div class="product-popup-image">
+                <img srcset="{{ product.featured_image | img_url: '1000x' }}" loading="lazy" />
+            </div>
+            <div class="product-popup-content">
+                <div class="product-title">{{ product.title }}</div>
+                <div class="product-price">{{ product.price | money }}</div>
+                <div class="product-desc">{{ product.description }}</div>
+            </div>
+        </div>
+
+        <div class="product-popup-bottom">
+            <form method="post" action="/cart/add" id="form-{{ product.id }}" accept-charset="UTF-8" enctype="multipart/form-data">
+                {% assign current_variant = product.selected_or_first_available_variant %}
+                <select class="hidden product-select" name="id">
+                    {% for variant in product.variants %}
+                        <option data-option-1="{{ variant.option1 }}" data-option-2="{{ variant.option2 }}" data-option-3="{{ variant.option3 }}" value="{{ variant.id }}" {% if variant == current_variant %}selected="selected"{% endif %}>{{ variant.title }}</option>
+                    {% endfor %}
+                </select>
+                <script type="application/json" id="variantJson">{{ product.variants | json }}</script>
+                <input type="hidden" name="quantity" value="1" />
+
+                {%- unless product.has_only_default_variant -%}
+                    {%- for option in product.options_with_values -%}
+                            {% assign option_name = option.name | downcase %}
+                            <div class="option-label">{{ option.name }}</div>
+                            {% if option_name == 'color' or option_name == 'colour' %}
+                                <div class="product-option-wrapper selected" data-option-index="{{ option.position }}">
+                                    <div class="color-wrapper">
+                                    {% for value in option.values %}
+                                        <div class="product-option {% if value == option.selected_value %}selected{% endif %}">
+                                            <input type="radio" id="{{ value.id }}" name="option-{{ option.position }}" value="{{ value }}" {% if value == option.selected_value %}checked{% endif %} />
+                                            <label for="{{ value.id }}">
+                                                <span style="background-color: {{ value | downcase }};"></span>
+                                                <div class="label">{{ value }}</div>
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="product-option-wrapper" data-option-index="{{ option.position }}">
+                                    <div class="product-option">
+                                        <div class="dropdown-wrap">
+                                            <div class="dropdown-wrap-text">
+                                                <div class="label">Choose your {{ option_name }}</div>
+                                                <div class="dropdown-icon">
+                                                    <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2 2L8 8L14 2" stroke="black" stroke-width="1.5" stroke-linecap="square"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown-content hidden">
+                                                {% for value in option.values %}
+                                                    <div class="option-value" data-choose-option>{{ value }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                    {% endfor %}
+                {%- endunless -%}
+
+                <div class="atc-btn-wrapper">
+                    <button type="button" class="atc-btn" form="form-{{ product.id }}" aria-disabled="true">
+                        <span>{{ 'products.product.add_to_cart' | t }}</span>
+                        <svg width="36" height="12" viewBox="0 0 36 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.4093 5.25L0.659302 5.25L0.659302 6.75L1.4093 6.75L1.4093 5.25ZM35.6391 6.53033C35.932 6.23744 35.932 5.76257 35.6391 5.46967L30.8661 0.696701C30.5733 0.403808 30.0984 0.403808 29.8055 0.696701C29.5126 0.989594 29.5126 1.46447 29.8055 1.75736L34.0481 6L29.8055 10.2426C29.5126 10.5355 29.5126 11.0104 29.8055 11.3033C30.0984 11.5962 30.5732 11.5962 30.8661 11.3033L35.6391 6.53033ZM1.4093 6.75L35.1088 6.75L35.1088 5.25L1.4093 5.25L1.4093 6.75Z" fill="currentColor"/>
+                        </svg>
+                        {% render 'loading-spinner' %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </product-form>
+
+    <script>
+        if (!customElements.get('product-form')) {
+            customElements.define(
+              'product-form',
+              class ProductForm extends HTMLElement {
+                constructor() {
+                  super();
+                    this.form = this.querySelector('form');
+                    this.atcBtn = this.querySelector('.atc-btn');
+                    this.price = this.querySelector('.product-price');
+                    this.selectElem = this.querySelector('select[name="id"]');
+                    this.variants = JSON.parse(this.querySelector('#variantJson').innerHTML);
+                    this.atcBtn.addEventListener('click', this.onClickHandler.bind(this));
+
+                    this.dropdowns = this.querySelectorAll('.dropdown-wrap');
+                    this.dropdownHandler();
+
+                    this.colorWrappers = this.querySelectorAll('.color-wrapper');
+                    this.colorHandler();
+                }
+
+                colorHandler(){
+                    this.colorWrappers.forEach(colorWrapper => {
+                        let colorInputs = colorWrapper.querySelectorAll('input');
+                        colorInputs.forEach(colorInput => {
+                            colorInput.addEventListener('change', () => {
+                                colorInputs.forEach(input => {
+                                    input.parentElement.classList.remove('selected');
+                                });
+                                colorInput.parentElement.classList.add('selected');
+                                this.selectVariant();
+                            });
+                        });
+                    });
+                }
+
+                dropdownHandler(){
+                    this.dropdowns.forEach(dropdown => {
+                        let dropdownText = dropdown.querySelector('.dropdown-wrap-text');
+                        let dropdownContent = dropdown.querySelector('.dropdown-content');
+                        let dropdownContentParent = dropdown.closest('.product-option-wrapper');
+                        dropdownText.addEventListener('click', () => {
+                            dropdownContent.classList.toggle('hidden');
+                        });
+                        dropdownContent.addEventListener('click', e => {
+                            if (e.target.classList.contains('option-value')) {
+                                dropdownText.querySelector('.label').textContent = e.target.textContent;
+                                dropdownContent.classList.add('hidden');
+                                dropdownContentParent.classList.add('selected');
+                                dropdownContentParent.querySelector('.product-option').classList.add('selected');
+                                this.atcBtn.setAttribute('aria-disabled', "false");
+                                this.selectVariant();
+                                //document.querySelector(`select[name="id"] option[data-option-${optionIndex}="${e.target.textContent}"]`).selected = true;
+                            }
+                        });
+                    });
+                }
+
+                selectVariant(){
+                    let selectedOptions = document.querySelectorAll('.product-option-wrapper');
+                    let selectedOptionsArray = Array.from(selectedOptions);
+                    let selectedOptionsValues = selectedOptionsArray.map(option => {
+                        if(option.querySelector('.product-option.selected'))
+                            return option.querySelector('.product-option.selected .label').textContent;
+                        else
+                            return null;
+                    });
+                    let selectedOptionsValuesFiltered = selectedOptionsValues.filter(option => option !== null);
+                    let selectedOptionsValuesString = selectedOptionsValuesFiltered.join(' / ');
+                    let variants = this.variants;
+                    let selectedVariant = variants.find(variant => {
+                        const variantOptions = variant.options;
+                        const variantOptionsString = variantOptions.join(' / ');
+                        return variantOptionsString === selectedOptionsValuesString;
+                    });
+
+                    if (selectedVariant) {
+                        if(!selectedVariant.available){
+                            this.atcBtn.querySelector('span').innerText = window.variantStrings.soldOut;
+                            this.atcBtn.setAttribute('aria-disabled', "true");
+                        }
+                        else{
+                            this.atcBtn.querySelector('span').innerText = window.variantStrings.addToCart;
+                            this.atcBtn.setAttribute('aria-disabled', "false");
+                            this.selectElem.querySelector(`option[value="${selectedVariant.id}"]`).selected = true;
+                            this.price.innerHTML = Shopify.formatMoney(selectedVariant.price, '{{ shop.money_format }}');
+                        }
+                    }
+                }
+
+                onClickHandler(evt){
+                    document.querySelectorAll('.product-option-wrapper').forEach(function(elem){
+                        if (!elem.classList.contains('selected')) {
+                            elem.classList.add('error');
+                            return false;
+                        }
+                    });
+
+                    if (this.getAttribute('aria-disabled') === 'true') return;
+
+                    let json = [];
+                    json.push({ 'id': this.selectElem.value, 'quantity': 1 });
+
+                    let selectedElement = this.selectElem.item(this.selectElem.selectedIndex);
+                    if((selectedElement.innerText == 'Black / M' || selectedElement.innerText == 'M / Black') && selectedElement.value != '41621246836814'){
+                        json.push({ 'id':'41621246836814', 'quantity': 1 });
+                    }
+
+                    let formData = JSON.stringify({'items': json});
+                    let config = fetchConfig('javascript');
+                    config.headers['Content-Type'] = 'application/json';
+
+                    config.body = formData;
+
+                    fetch(`${routes.cart_add_url}`, config)
+                    .then((response) => response.json())
+                    .then((response) => {
+                        window.location = window.routes.cart_url;
+                        return;
+                    });
+                }
+            }
+        );
+        }
+    </script>
+</product-popup>

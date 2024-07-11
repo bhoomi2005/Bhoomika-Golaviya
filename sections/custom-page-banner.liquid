@@ -1,21 +1,49 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 {{ 'custom-banner-css.css' | asset_url | stylesheet_tag }}
 <div class="custom-page-banner-wrapper section-{{ section.id }}">
-    <div class="custom-page-banner-header">
+    <div class="custom-container custom-page-banner-header">
+        <div class="mobile-trigger hideDesktop">
+            <svg width="20" height="13" viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 6.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 1.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 11.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <svg class="close-icon" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 13.9997L13.7279 1.27177" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 1.00031L13.7279 13.7282" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
         {%- if section.settings.logo != blank -%}
             <div class="logo_image"><img src="{{ section.settings.logo | image_url: width: 400 }}" alt="Logo" /></div>
         {%- endif -%}
         {%- if section.settings.text != blank -%}
-            <div class="text_line">{{ section.settings.text }}</div>
+            <div class="text_line hideMobile">{{ section.settings.text }}</div>
         {%- endif -%}
         {%- if section.settings.btn_text != blank -%}
-            <a href="{{ section.settings.btn_link }}" class="btn">
-                <span>{{ section.settings.btn_text }}</span>
-                <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
-                </svg>
-            </a>
+            <div class="hideMobile">
+                <a href="{{ section.settings.btn_link }}" class="btn">
+                    <span>{{ section.settings.btn_text }}</span>
+                    <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
         {%- endif -%}
+
+        <div class="dropdown-content">
+            {%- if section.settings.text != blank -%}
+                <div class="text_line">{{ section.settings.text }}</div>
+            {%- endif -%}
+            {%- if section.settings.btn_text != blank -%}
+                <a href="{{ section.settings.btn_link }}" class="btn">
+                    <span>{{ section.settings.btn_text }}</span>
+                    <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            {%- endif -%}
+        </div>
     </div>
     <div class="banner-wrapper">
         <div class="banner_image">
@@ -58,8 +86,11 @@
                     <div class="title">{{ section.settings.title }}</div>
                 {%- endif -%}
                 {%- if section.settings.content != blank -%}
-                    <div class="content">{{ section.settings.content }}</div>
+                    <div class="content {% if section.settings.content_m != blank %}hideMobile{% endif %}">{{ section.settings.content }}</div>
                 {%- endif -%}
+                {% if section.settings.content_m != blank %}
+                    <div class="content hideDesktop">{{ section.settings.content_m }}</div>
+                {% endif %}
                 {%- if section.settings.banner_btn_text != blank -%}
                     <a href="{{ section.settings.banner_btn_link }}" class="btn">
                         <span>{{ section.settings.banner_btn_text }}</span>
@@ -72,11 +103,23 @@
         </div>
         <style>
             .section-{{ section.id }} .banner-wrapper .banner_image img{ height: {{ section.settings.banner_height }}px; }
+            @media screen and (max-width: 767px){
+                .section-{{ section.id }} .banner-wrapper .banner_image img{ height: {{ section.settings.banner_height_m }}px; }
+            }
         </style>
     </div>
     {%- if section.settings.bottom_text != blank -%}
-        <div class="bottom-line">{{ section.settings.bottom_text }}</div>
+        <div class="bottom-line {% if section.settings.bottom_text_m != blank %}hideMobile{% endif %}">{{ section.settings.bottom_text }}</div>
     {%- endif -%}
+    {% if section.settings.bottom_text_m != blank %}
+        <div class="bottom-line hideDesktop">{{ section.settings.bottom_text_m }}</div>
+    {% endif %}
+    <script>
+        document.querySelector('.mobile-trigger').onclick = function(){
+            this.classList.toggle('active');
+            document.querySelector('.dropdown-content').classList.toggle('show');
+        };
+    </script>
 </div>
 
 {% schema %}
@@ -174,6 +217,11 @@
         "label": "Content"
     },
     {
+        "type": "richtext",
+        "id": "content_m",
+        "label": "Content(Mobile)"
+    },
+    {
         "type": "text",
         "id": "banner_btn_text",
         "label": "Button text"
@@ -191,6 +239,11 @@
         "type": "text",
         "id": "bottom_text",
         "label": "Text"
+    },
+    {
+        "type": "text",
+        "id": "bottom_text_m",
+        "label": "Text(Mobile)"
     }
   ],
   "presets": [

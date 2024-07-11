@@ -29,9 +29,10 @@ if (!customElements.get('quick-add-modal')) {
           .then((response) => response.text())
           .then((responseText) => {
             const responseHTML = new DOMParser().parseFromString(responseText, 'text/html');
-            const productElement = responseHTML.querySelector('product-info');
+            let productElement = responseHTML.querySelector('product-info');
 
-            this.preprocessHTML(productElement);
+            if(productElement) this.preprocessHTML(productElement);
+            else productElement = responseHTML.querySelector('product-popup');
             HTMLUpdateUtility.setInnerHTML(this.modalContent, productElement.outerHTML);
 
             if (window.Shopify && Shopify.PaymentButton) {
